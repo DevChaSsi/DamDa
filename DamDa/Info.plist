@@ -21,5 +21,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>사진 권한을 허용하시겠습니꺄?</string>
 </dict>
 </plist>

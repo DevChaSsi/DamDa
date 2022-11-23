@@ -6,20 +6,55 @@
 //
 
 import UIKit
+import Lottie
+
 
 class StartViewController: UIViewController {
+    let animationView: AnimationView = {
+           let animationView: AnimationView = .init(name: "splash")
+        animationView.contentMode = .scaleToFill
+           return animationView
+       }()
+    
 
     override func viewDidLoad() {
+            super.viewDidLoad()
+            setup()
+        }
         
+        // MARK: - setup
+        func setup() {
+            addViews()
+            setConstraints()
+            animationView.play { (finish) in
+                self.animationView.removeFromSuperview()
+            }
+        }
         
-        super.viewDidLoad()
+        // MARK: - addViews
+        func addViews() {
+            view.addSubview(animationView)
+        }
+        
+        // MARK: - setConstraints
+        func setConstraints() {
+            animationViewConstraints()
+        }
+        
+        func animationViewConstraints() {
+            animationView.translatesAutoresizingMaskIntoConstraints =  false
+            animationView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+            animationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+            animationView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            animationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+//            animationView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//            animationView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        }
 
-        
-    }
-    @IBAction func goToWrite(_ sender: UIButton) {
-        performSegue(withIdentifier: "goToWrite", sender: nil)
     
-   
+    @IBAction func goToWrite(_ sender: UIButton) {
+            performSegue(withIdentifier: "segue", sender: self)
+    
     }
     
 

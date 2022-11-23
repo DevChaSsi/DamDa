@@ -6,7 +6,7 @@ target 'DamDa' do
   use_frameworks!
 
   # Pods for DamDa
-pod 'lottie-ios' ~> '
+pod 'lottie-ios'
 
 
 end
