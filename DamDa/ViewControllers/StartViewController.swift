@@ -10,15 +10,18 @@ import Lottie
 
 
 class StartViewController: UIViewController {
-    let animationView: AnimationView = {
-           let animationView: AnimationView = .init(name: "splash")
+    let animationView: LottieAnimationView = {
+        let animationView: LottieAnimationView = .init(name: "splash")
         animationView.contentMode = .scaleToFill
+        animationView.animationSpeed = 10
            return animationView
        }()
     
 
     override func viewDidLoad() {
             super.viewDidLoad()
+        
+
             setup()
         }
         

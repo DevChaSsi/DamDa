@@ -6,55 +6,105 @@
 //
 
 import UIKit
-import BSImagePicker
 
 
 
 class DetailViewController: UIViewController {
     
-    @IBAction func addImages(_ sender: UIButton) {
-        let imagePicker = ImagePickerController()
-        
-        imagePicker.settings.selection.max = 5
-        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
-        
-        presentImagePicker(imagePicker, select: { (asset) in
-            // User selected an asset. Do something with it. Perhaps begin processing/upload?
-            
-        }, deselect: { (asset) in
-            // User deselected an asset. Cancel whatever you did when asset was selected.
-            
-        }, cancel: { (assets) in
-            // User canceled selection.
-            
-        }, finish: { (assets) in
-            // User finished selection assets.
-            
-            
-        })
-    }
-                               
+
+    @IBOutlet weak var today: UILabel!
+    @IBOutlet weak var todayTitle: UILabel!
+    @IBOutlet weak var diaryTextView: UITextView!
+    @IBOutlet weak var detailCollectionView: UICollectionView!
+    
+    private let viewModel: DetailViewModel = DetailViewModel()
+    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-
+        definesPresentationContext = true
     }
-
-    @IBAction func pressAddButton(_ sender: UIButton) {
-      
-        
-}
 }
 
-extension DetailViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+
+extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.viewModel.userSelectedImages.count + 1     /// Add Button 이 항상 있어야하므로 + 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath)
-        as! DiaryListTableViewCell // superclass as! Subclass
-        cell.datePreview.text = "hi"
-        return cell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        /// 첫 번째 Cell 은 항상 Add Button
+        if indexPath.item == 0 {
+            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addButtonCell", for: indexPath) as? AddImageCollectionViewCell else {
+                fatalError("Failed to dequeue cell addButtonCell")
+            }
+            cell.delegate = self
+            return cell
+        }
+        
+        /// 그 외의 셀은 사용자가 고른 사진으로 구성된  Cell
+        else {
+            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userSelectedImageCell", for: indexPath) as? UserSelectedImageCell else {
+                fatalError("Failed to dequeue cell for userSelectedImageCell")
+            }
+//            cell.delegate = self
+            cell.indexPath = indexPath.item
+            
+            /// 사용자가 앨범에서 고른 사진이 있는 경우
+            if viewModel.userSelectedImages.count > 0 {
+                cell.userSelectedImage.image = viewModel.userSelectedImages[indexPath.item - 1]
+            }
+            return cell
+        }
     }
 }
+
+
+
+
+//MARK: - AddImageDelegate
+
+extension DetailViewController: AddImageDelegate {
+
+    func didPickImagesToUpload(images: [UIImage]) {
+
+        viewModel.userSelectedImages = images
+        detailCollectionView.reloadData()
+    }
+}
+
+//MARK: - UserPickedFoodImageCellDelegate
+//
+//extension DetailViewController: UserSelectedmageCellDelegate {
+//
+//    func didPressDeleteImageButton(at index: Int) {
+//
+//        viewModel.userSelectedImages.remove(at: index - 1)
+//        detailCollectionView.reloadData()
+//    }
+//}
+//extension DetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+//
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return viewModel.foodCategoryArray.count
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return viewModel.foodCategoryArray[row]
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//
+//        let selectedFoodCategory = viewModel.foodCategoryArray[row]
+//        viewModel.foodCategory = selectedFoodCategory
+//
+//        foodCategoryTextField.text = selectedFoodCategory
+//    }
+//}
