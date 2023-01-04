@@ -7,9 +7,15 @@
 
 import UIKit
 import Lottie
+import RealmSwift
 
 
 class StartViewController: UIViewController {
+    
+    let realm = try! Realm()
+    
+    var loadItem: Results<DiaryModel>? // 안젤라 263 - 4분무렵
+    
     let animationView: LottieAnimationView = {
         let animationView: LottieAnimationView = .init(name: "splash")
         animationView.contentMode = .scaleToFill
@@ -17,14 +23,33 @@ class StartViewController: UIViewController {
            return animationView
        }()
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+      navigationController?.setNavigationBarHidden(true, animated: true) // 뷰 컨트롤러가 나타날 때 숨기기
+        
+    }
+    
 
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
             super.viewDidLoad()
         
+    
+            let nibName = UINib(nibName: "DiaryListTableViewCell", bundle: nil)
+        tableView.register(nibName, forCellReuseIdentifier: "DiaryListTableViewCell")
 
-            setup()
-        }
+        setup()
         
+        loadDiary()
+        tableView.reloadData()
+        
+        }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+      navigationController?.setNavigationBarHidden(false, animated: true) // 뷰 컨트롤러가 사라질 때 나타내기
+    }
+    
         // MARK: - setup
         func setup() {
             addViews()
@@ -61,4 +86,26 @@ class StartViewController: UIViewController {
     }
     
 
+}
+
+extension StartViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    //MARK: - Data Load
+    func loadDiary() {
+        loadItem = realm.objects(DiaryModel.self)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return loadItem?.count ?? 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryListTableViewCell", for: indexPath) as! DiaryListTableViewCell
+        cell.previewImage.image = UIImage.add
+        cell.todayTitle?.text = loadItem?[indexPath.row].todayDate ?? "No Added"
+        cell.diaryTitle?.text = loadItem?[indexPath.row].todayTitle ?? "No Title"
+        
+        return cell
+    }
 }

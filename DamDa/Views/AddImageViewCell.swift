@@ -21,42 +21,41 @@ class AddImageCollectionViewCell: UICollectionViewCell {
     var selectedAssets: [PHAsset] = [PHAsset]()
     var userSelectedImages: [UIImage] = [UIImage]()
 
-    @IBAction func addImages(_ sender: UIButton) {
-        
-        let imagePicker = ImagePickerController()
-        
-        //+버튼을 눌렀을 때 기존 사진 모두 초기화
-        selectedAssets.removeAll()
-        userSelectedImages.removeAll()
-        
-        
-        
-        imagePicker.settings.selection.max = 5
-        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
-        
-        //*********************************
-        
-        let vc = self.window?.rootViewController
-        vc?.presentImagePicker(imagePicker, select: { (asset) in
-            // User selected an asset. Do something with it. Perhaps begin processing/upload?
+    @IBAction func addImages(_ sender: UIButton){
             
-        }, deselect: { (asset) in
-            // User deselected an asset. Cancel whatever you did when asset was selected.
+            let imagePicker = ImagePickerController()
             
-        }, cancel: { (assets) in
-            // User canceled selection.
+            //+버튼을 눌렀을 때 기존 사진 모두 초기화
+            selectedAssets.removeAll()
+            userSelectedImages.removeAll()
             
-        }, finish: { (assets) in
-            // User finished selection assets.
-            for i in 0..<assets.count {
-                self.selectedAssets.append(assets[i])
-            }
-            self.convertAssetToImages()
-            self.delegate?.didPickImagesToUpload(images: self.userSelectedImages)
+            imagePicker.settings.selection.max = 5
+            imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
             
-        })
-    }
+            //*********************************
+            
+            let vc = self.window?.rootViewController
+            vc?.presentImagePicker(imagePicker, select: { (asset) in
+                // User selected an asset. Do something with it. Perhaps begin processing/upload?
+                
+            }, deselect: { (asset) in
+                // User deselected an asset. Cancel whatever you did when asset was selected.
+                
+            }, cancel: { (assets) in
+                // User canceled selection.
+                
+            }, finish: { (assets) in
+                // User finished selection assets.
+                for i in 0..<assets.count {
+                    self.selectedAssets.append(assets[i])
+                }
+                self.convertAssetToImages()
+                self.delegate?.didPickImagesToUpload(images: self.userSelectedImages)
+                print(assets)
+            })
+        }
     
+   
     func convertAssetToImages() {
         
         if selectedAssets.count != 0 {

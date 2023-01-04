@@ -7,6 +7,7 @@ target 'DamDa' do
 
   # Pods for DamDa
 pod 'lottie-ios'
+pod 'RealmSwift'
 
 
 end

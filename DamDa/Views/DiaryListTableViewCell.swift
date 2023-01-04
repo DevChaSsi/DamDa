@@ -9,10 +9,9 @@ import UIKit
 
 class DiaryListTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var todayTitle: UILabel!
+    @IBOutlet weak var diaryTitle: UILabel!
     @IBOutlet weak var previewImage: UIImageView!
-    @IBOutlet weak var weatherPreview: UIImageView!
-    @IBOutlet weak var datePreview: UILabel!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,7 +21,7 @@ class DiaryListTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        
+        
     }
-    
 }
