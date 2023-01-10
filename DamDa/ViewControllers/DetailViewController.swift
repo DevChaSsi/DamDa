@@ -118,37 +118,39 @@ class DetailViewController: UIViewController, UITextViewDelegate {
             detailCollectionView.reloadData()
         }
     }
+
+
     
     //MARK: - UserPickedFoodImageCellDelegate
-    //
-    //extension DetailViewController: UserSelectedmageCellDelegate {
-    //
-    //    func didPressDeleteImageButton(at index: Int) {
-    //
-    //        viewModel.userSelectedImages.remove(at: index - 1)
-    //        detailCollectionView.reloadData()
-    //    }
-    //}
-    //extension DetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    //
-    //    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-    //        return 1
-    //    }
-    //
-    //    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    //        return viewModel.foodCategoryArray.count
-    //    }
-    //
-    //    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    //        return viewModel.foodCategoryArray[row]
-    //    }
-    //
-    //    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    //
-    //        let selectedFoodCategory = viewModel.foodCategoryArray[row]
-    //        viewModel.foodCategory = selectedFoodCategory
-    //
-    //        foodCategoryTextField.text = selectedFoodCategory
-    //    }
-    //}
+    
+//    extension DetailViewController: UserSelectedmageCellDelegate {
+//    
+//        func didPressDeleteImageButton(at index: Int) {
+//    
+//            viewModel.userSelectedImages.remove(at: index - 1)
+//            detailCollectionView.reloadData()
+//        }
+//    }
+//    extension DetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+//    
+//        func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//            return 1
+//        }
+//    
+//        func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//            return viewModel.foodCategoryArray.count
+//        }
+//    
+//        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//            return viewModel.foodCategoryArray[row]
+//        }
+//    
+//        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//    
+//            let selectedFoodCategory = viewModel.foodCategoryArray[row]
+//            viewModel.foodCategory = selectedFoodCategory
+//    
+//            foodCategoryTextField.text = selectedFoodCategory
+//        }
+//    }
 

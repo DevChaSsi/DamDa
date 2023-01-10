@@ -88,9 +88,13 @@ class StartViewController: UIViewController {
 
 }
 
+
+
+//MARK: - Data Load
+
 extension StartViewController: UITableViewDelegate, UITableViewDataSource {
     
-    //MARK: - Data Load
+    
     func loadDiary() {
         loadItem = realm.objects(DiaryModel.self)
     }
@@ -103,9 +107,23 @@ extension StartViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DiaryListTableViewCell", for: indexPath) as! DiaryListTableViewCell
         cell.previewImage.image = UIImage.add
-        cell.todayTitle?.text = loadItem?[indexPath.row].todayDate ?? "No Added"
+        cell.todayTitle?.text = loadItem?[indexPath.row].todayDate ?? "No Date"
         cell.diaryTitle?.text = loadItem?[indexPath.row].todayTitle ?? "No Title"
         
         return cell
     }
+    
+    //MARK: - TableView To Detail
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let diaryWrittenViewController = self.storyboard?.instantiateViewController(identifier: "WrittenViewController") as? WrittenViewController else { return }
+        let diary = self.loadItem?[indexPath.row]
+        diaryWrittenViewController.diary = diary
+        self.navigationController?.pushViewController(diaryWrittenViewController, animated: true)
+    }
+    
+    
 }
+
+
+

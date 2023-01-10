@@ -12,7 +12,7 @@ import RealmSwift
 class DiaryModel: Object {
     
 
-//    @Persisted var today: String?
+
     @Persisted var todayDate: String?
     @Persisted var img: String?
     @Persisted var todayTitle: String?

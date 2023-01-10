@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22AAA045A4999D04238AFD6A /* Pods_DamDa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B098FC18A38C46883F0FD869 /* Pods_DamDa.framework */; };
+		2771BEE05D795C5092530AAE /* Pods_DamDa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F290CA9546D188B9F27FAEE1 /* Pods_DamDa.framework */; };
 		DA43D984292CC23D0046586C /* DiaryListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA43D982292CC23D0046586C /* DiaryListTableViewCell.swift */; };
 		DA43D985292CC23D0046586C /* DiaryListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA43D983292CC23D0046586C /* DiaryListTableViewCell.xib */; };
 		DAA59C6429276B7C00CC5781 /* DiaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA59C6329276B7C00CC5781 /* DiaryModel.swift */; };
@@ -16,6 +16,9 @@
 		DABABC1829383AF300A320AD /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABABC1729383AF300A320AD /* DetailViewModel.swift */; };
 		DABABC1A29383FAE00A320AD /* UserSelectedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABABC1929383FAE00A320AD /* UserSelectedImageCell.swift */; };
 		DABABC1C2946B7E200A320AD /* loadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABABC1B2946B7E200A320AD /* loadService.swift */; };
+		DABCDF69296C048B002F9BA9 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = DABCDF68296C048B002F9BA9 /* Realm */; };
+		DABCDF6B296C048B002F9BA9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DABCDF6A296C048B002F9BA9 /* RealmSwift */; };
+		DAC1581F296BD004002C73E7 /* WrittenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC1581E296BD004002C73E7 /* WrittenViewController.swift */; };
 		DAD474192832282F0063912A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD474182832282F0063912A /* AppDelegate.swift */; };
 		DAD4741B2832282F0063912A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4741A2832282F0063912A /* SceneDelegate.swift */; };
 		DAD4741D2832282F0063912A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4741C2832282F0063912A /* DetailViewController.swift */; };
@@ -26,8 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0E94AFD18D779696C833AC2B /* Pods-DamDa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamDa.release.xcconfig"; path = "Target Support Files/Pods-DamDa/Pods-DamDa.release.xcconfig"; sourceTree = "<group>"; };
-		B098FC18A38C46883F0FD869 /* Pods_DamDa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DamDa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A123CFFE218BD1A2D079F17 /* Pods-DamDa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamDa.release.xcconfig"; path = "Target Support Files/Pods-DamDa/Pods-DamDa.release.xcconfig"; sourceTree = "<group>"; };
+		6E87F1BBAC4F41B61A3849C5 /* Pods-DamDa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamDa.debug.xcconfig"; path = "Target Support Files/Pods-DamDa/Pods-DamDa.debug.xcconfig"; sourceTree = "<group>"; };
 		DA43D982292CC23D0046586C /* DiaryListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListTableViewCell.swift; sourceTree = "<group>"; };
 		DA43D983292CC23D0046586C /* DiaryListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryListTableViewCell.xib; sourceTree = "<group>"; };
 		DAA59C6329276B7C00CC5781 /* DiaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryModel.swift; sourceTree = "<group>"; };
@@ -36,6 +39,7 @@
 		DABABC1729383AF300A320AD /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		DABABC1929383FAE00A320AD /* UserSelectedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSelectedImageCell.swift; sourceTree = "<group>"; };
 		DABABC1B2946B7E200A320AD /* loadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadService.swift; sourceTree = "<group>"; };
+		DAC1581E296BD004002C73E7 /* WrittenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrittenViewController.swift; sourceTree = "<group>"; };
 		DAD474152832282F0063912A /* DamDa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DamDa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD474182832282F0063912A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAD4741A2832282F0063912A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,7 +48,7 @@
 		DAD47421283228310063912A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAD47426283228310063912A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAD51A8D2844FBEA002A2914 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
-		F90FEE1E457BFB703F66D56A /* Pods-DamDa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamDa.debug.xcconfig"; path = "Target Support Files/Pods-DamDa/Pods-DamDa.debug.xcconfig"; sourceTree = "<group>"; };
+		F290CA9546D188B9F27FAEE1 /* Pods_DamDa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DamDa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,20 +56,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DABCDF6B296C048B002F9BA9 /* RealmSwift in Frameworks */,
+				DABCDF69296C048B002F9BA9 /* Realm in Frameworks */,
 				DAD51A852844F107002A2914 /* BSImagePicker in Frameworks */,
-				22AAA045A4999D04238AFD6A /* Pods_DamDa.framework in Frameworks */,
+				2771BEE05D795C5092530AAE /* Pods_DamDa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		89661B54602FF1C66D04BB69 /* Frameworks */ = {
+		7CC09E197E222722BE7DA191 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B098FC18A38C46883F0FD869 /* Pods_DamDa.framework */,
+				6E87F1BBAC4F41B61A3849C5 /* Pods-DamDa.debug.xcconfig */,
+				0A123CFFE218BD1A2D079F17 /* Pods-DamDa.release.xcconfig */,
 			);
-			name = Frameworks;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		DAA59C5C29276A2300CC5781 /* Data */ = {
@@ -81,6 +88,7 @@
 			children = (
 				DAD51A8D2844FBEA002A2914 /* StartViewController.swift */,
 				DAD4741C2832282F0063912A /* DetailViewController.swift */,
+				DAC1581E296BD004002C73E7 /* WrittenViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -119,8 +127,8 @@
 				DAA59C8E29277C9400CC5781 /* splash.json */,
 				DAD474172832282F0063912A /* DamDa */,
 				DAD474162832282F0063912A /* Products */,
-				E508696890002C944552C8C7 /* Pods */,
-				89661B54602FF1C66D04BB69 /* Frameworks */,
+				7CC09E197E222722BE7DA191 /* Pods */,
+				FA894FADE69E5922319B2DA7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,13 +156,12 @@
 			path = DamDa;
 			sourceTree = "<group>";
 		};
-		E508696890002C944552C8C7 /* Pods */ = {
+		FA894FADE69E5922319B2DA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F90FEE1E457BFB703F66D56A /* Pods-DamDa.debug.xcconfig */,
-				0E94AFD18D779696C833AC2B /* Pods-DamDa.release.xcconfig */,
+				F290CA9546D188B9F27FAEE1 /* Pods_DamDa.framework */,
 			);
-			path = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,11 +171,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DAD47429283228310063912A /* Build configuration list for PBXNativeTarget "DamDa" */;
 			buildPhases = (
-				65F52F5842F4CCBEC394720D /* [CP] Check Pods Manifest.lock */,
+				425D6BE30DA12ABDE4024353 /* [CP] Check Pods Manifest.lock */,
 				DAD474112832282F0063912A /* Sources */,
 				DAD474122832282F0063912A /* Frameworks */,
 				DAD474132832282F0063912A /* Resources */,
-				F8663C8B0D2497D71BE74518 /* [CP] Embed Pods Frameworks */,
+				BEBEF4094A7AC5CBBE0023E9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -177,6 +184,8 @@
 			name = DamDa;
 			packageProductDependencies = (
 				DAD51A842844F107002A2914 /* BSImagePicker */,
+				DABCDF68296C048B002F9BA9 /* Realm */,
+				DABCDF6A296C048B002F9BA9 /* RealmSwift */,
 			);
 			productName = DamDa;
 			productReference = DAD474152832282F0063912A /* DamDa.app */;
@@ -208,6 +217,7 @@
 			mainGroup = DAD4740C2832282F0063912A;
 			packageReferences = (
 				DAD51A832844F107002A2914 /* XCRemoteSwiftPackageReference "BSImagePicker" */,
+				DABCDF67296C048B002F9BA9 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = DAD474162832282F0063912A /* Products */;
 			projectDirPath = "";
@@ -233,7 +243,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		65F52F5842F4CCBEC394720D /* [CP] Check Pods Manifest.lock */ = {
+		425D6BE30DA12ABDE4024353 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -255,7 +265,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F8663C8B0D2497D71BE74518 /* [CP] Embed Pods Frameworks */ = {
+		BEBEF4094A7AC5CBBE0023E9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -288,6 +298,7 @@
 				DABABC1A29383FAE00A320AD /* UserSelectedImageCell.swift in Sources */,
 				DAD4741B2832282F0063912A /* SceneDelegate.swift in Sources */,
 				DA43D984292CC23D0046586C /* DiaryListTableViewCell.swift in Sources */,
+				DAC1581F296BD004002C73E7 /* WrittenViewController.swift in Sources */,
 				DABABC1829383AF300A320AD /* DetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,7 +367,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -410,7 +421,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -422,7 +433,7 @@
 		};
 		DAD4742A283228310063912A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F90FEE1E457BFB703F66D56A /* Pods-DamDa.debug.xcconfig */;
+			baseConfigurationReference = 6E87F1BBAC4F41B61A3849C5 /* Pods-DamDa.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -437,6 +448,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -452,7 +464,7 @@
 		};
 		DAD4742B283228310063912A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E94AFD18D779696C833AC2B /* Pods-DamDa.release.xcconfig */;
+			baseConfigurationReference = 0A123CFFE218BD1A2D079F17 /* Pods-DamDa.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -467,6 +479,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -504,6 +517,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DABCDF67296C048B002F9BA9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.33.0;
+			};
+		};
 		DAD51A832844F107002A2914 /* XCRemoteSwiftPackageReference "BSImagePicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mikaoj/BSImagePicker.git";
@@ -515,6 +536,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DABCDF68296C048B002F9BA9 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DABCDF67296C048B002F9BA9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		DABCDF6A296C048B002F9BA9 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DABCDF67296C048B002F9BA9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
 		DAD51A842844F107002A2914 /* BSImagePicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DAD51A832844F107002A2914 /* XCRemoteSwiftPackageReference "BSImagePicker" */;
