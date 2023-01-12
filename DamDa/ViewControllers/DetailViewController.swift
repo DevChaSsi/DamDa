@@ -13,9 +13,7 @@ import Photos
 
 class DetailViewController: UIViewController, UITextViewDelegate {
     
-//    let addImageViewCell = AddImageCollectionViewCell.selectedAssets
-
-
+//    let addImageViewCell = AddImageCollectionViewCell.selectedAsset
     
     @IBOutlet weak var todayDatePicker: UIDatePicker!
     @IBOutlet weak var todayTitle: UITextField!
@@ -23,17 +21,40 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var detailCollectionView: UICollectionView!
     
     private var viewModel: DetailViewModel = DetailViewModel()
+    
+    var diaryIndex: Int?
+    var diaryEditorMode: DiaryEditorMode = .new
+    
+    var todayDatePickerString: String?
+    var todayTitleString: String?
+    var diaryTextViewString: String?
+    
+    let realm = try! Realm()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         definesPresentationContext = true
         
+        if let msg1 = todayTitleString {
+                    self.todayTitle.text = msg1
+                }
+
+        
         //MARK: - textView PlaceHolder
         diaryTextView.delegate = self
-        diaryTextView.text = "How was your day?"
-        diaryTextView.textColor = UIColor.lightGray
+        if diaryEditorMode == .new {
+            diaryTextView.text = "How was your day?"
+            diaryTextView.textColor = UIColor.lightGray
+        } else {
+            diaryTextView.text = diaryTextViewString
+        }
+        
+        
     }
+    
+
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.diaryTextView.resignFirstResponder()
     }
@@ -52,22 +73,46 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+    
+    
     //MARK: - SaveButtonPressed
     
     @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
-        
-    let newToday = DiaryModel()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        newToday.todayDate = dateFormatter.string(from: todayDatePicker.date)
-        self.view.endEditing(true)
-        newToday.todayTitle = todayTitle.text ?? ""
-        newToday.diaryTextView = diaryTextView.text ?? ""
-        
-        LoadService().saveDiary(diary: newToday)
+        switch self.diaryEditorMode {
+        case .new:
+            let newToday = DiaryModel()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            newToday.todayDate = dateFormatter.string(from: todayDatePicker.date)
+            self.view.endEditing(true)
+            newToday.todayTitle = todayTitle.text ?? ""
+            newToday.diaryTextView = diaryTextView.text ?? ""
+            
+            LoadService().saveDiary(diary: newToday)
+            
+        case .edit:
+            let updateToday = DiaryModel()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            updateToday.todayDate = dateFormatter.string(from: todayDatePicker.date)
+            self.view.endEditing(true)
+            updateToday.todayTitle = todayTitle.text ?? ""
+            updateToday.diaryTextView = diaryTextView.text ?? ""
+            
+            
+            let diaaary = realm.objects(DiaryModel.self)
+            try! realm.write {
+                diaaary[diaryIndex!].todayDate = updateToday.todayDate
+                diaaary[diaryIndex!].todayTitle = updateToday.todayTitle
+                diaaary[diaryIndex!].diaryTextView = updateToday.diaryTextView
+            }
+//            LoadService().updateDiary(diary: updateToday)
+        }
+        self.navigationController?.popViewController(animated: true)
     }
-    
+
 }
     
     extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {

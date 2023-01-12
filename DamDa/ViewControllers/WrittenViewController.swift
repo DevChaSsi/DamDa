@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import RealmSwift
 
 class WrittenViewController: UIViewController {
 
-    
+    let realm = try! Realm()
+
     
     @IBOutlet weak var todayDate: UILabel!
     @IBOutlet weak var todayTitle: UILabel!
@@ -17,14 +19,24 @@ class WrittenViewController: UIViewController {
 //    @IBOutlet weak var ellipsisButtton: UINavigationItem!
     
     
+    var tasks: Results<DiaryModel>!
     var diary: DiaryModel?
+    var diaryIndex: Int?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        todayDate.text = diary?.todayDate
+        todayTitle.text = diary?.todayTitle
+        diaryText.text = diary?.diaryTextView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         todayDate.text = diary?.todayDate
         todayTitle.text = diary?.todayTitle
         diaryText.text = diary?.diaryTextView
+        
         popupMenu()
         
         
@@ -35,8 +47,26 @@ class WrittenViewController: UIViewController {
     var menuItems: [UIAction] {
         return [
             UIAction(title: "수정하기", image: UIImage(systemName: "eraser"), handler: { (_) in
+                guard let goDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "WriteDiaryViewController") as? DetailViewController else { return }
+                
+                self.navigationController?.pushViewController(goDetailViewController, animated: true)
+                
+                goDetailViewController.diaryEditorMode = .edit
+                goDetailViewController.todayTitleString = self.diary?.todayTitle
+                goDetailViewController.diaryTextViewString = self.diary?.diaryTextView
+                goDetailViewController.diaryIndex = self.diaryIndex
+
+                
             }),
             UIAction(title: "삭제하기", image: UIImage(systemName: "trash"), attributes: .destructive, handler: { (_) in
+                guard let gostartViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as? StartViewController else { return }
+                self.navigationController?.pushViewController(gostartViewController, animated: true)
+
+                
+                    try! self.realm.write {
+                        self.realm.delete(self.diary!)
+                    
+                }
             })
         ]
     }
@@ -73,5 +103,6 @@ class WrittenViewController: UIViewController {
                                                                      action: #selector(moreActionTapped))
         }
     }
+
     
 }

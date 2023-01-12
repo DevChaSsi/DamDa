@@ -11,8 +11,7 @@ import RealmSwift
 
 class DiaryModel: Object {
     
-
-
+    @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var todayDate: String?
     @Persisted var img: String?
     @Persisted var todayTitle: String?
