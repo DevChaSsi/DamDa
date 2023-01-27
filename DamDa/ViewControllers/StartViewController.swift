@@ -13,13 +13,10 @@ class StartViewController: UIViewController {
     
 
     let realm = try! Realm()
-    var tableViewMode: TableViewMode = .start
+    
     var loadItem: Results<DiaryModel>!
     
-    
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
+override func viewWillAppear(_ animated: Bool) {
       navigationController?.setNavigationBarHidden(true, animated: true) // 뷰 컨트롤러가 나타날 때 숨기기
         tableView.reloadData()
     }
@@ -33,6 +30,7 @@ class StartViewController: UIViewController {
 
         let nibName = UINib(nibName: "DiaryListTableViewCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "DiaryListTableViewCell")
+        
         loadDiary()
         tableView.reloadData()
         
@@ -41,11 +39,6 @@ class StartViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
       navigationController?.setNavigationBarHidden(false, animated: true) // 뷰 컨트롤러가 사라질 때 나타내기
     }
-    
-    
-    
-
-       
     
     @IBAction func goToWrite(_ sender: UIButton) {
             performSegue(withIdentifier: "segue", sender: self)
@@ -65,6 +58,7 @@ extension StartViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return loadItem?.count ?? 1
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,11 +68,19 @@ extension StartViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let task = loadItem[indexPath.row]
-        cell.previewImage.image = UIImage.add
+
+        if task.dataArray.count == 0 {
+            cell.previewImage.image = UIImage(systemName: "photo")
+            cell.previewImage.contentMode = .scaleAspectFit
+            
+        } else {
+            let newImage = UIImage(data: task.dataArray[0])
+            cell.previewImage.image = newImage
+            cell.previewImage.contentMode = .scaleAspectFit
+
+        }
         cell.todayTitle?.text = task.todayDate ?? "No Date"
         cell.diaryTitle?.text = task.todayTitle ?? "No Title"
-        
-      
         
         return cell
     }
@@ -88,7 +90,6 @@ extension StartViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let diaryWrittenViewController = self.storyboard?.instantiateViewController(identifier: "WrittenViewController") as? WrittenViewController else { return }
         let diary = self.loadItem?[indexPath.row]
-        
         diaryWrittenViewController.diary = diary
         let diaryIndex = indexPath.row
         diaryWrittenViewController.diaryIndex = diaryIndex

@@ -8,18 +8,22 @@
 import UIKit
 import BSImagePicker
 import Photos
+import RealmSwift
 
 protocol AddImageDelegate {
     func didPickImagesToUpload(images: [UIImage])
+    func dataToSave(data1: [Data])
 }
 
-
-class AddImageCollectionViewCell: UICollectionViewCell {
+class AddImageViewCell: UICollectionViewCell {
     
     var delegate: AddImageDelegate!
 
     var selectedAssets: [PHAsset] = [PHAsset]()
     var userSelectedImages: [UIImage] = [UIImage]()
+    var imageToData: [Data] = [Data]()
+
+
 
     @IBAction func addImages(_ sender: UIButton){
             
@@ -28,6 +32,7 @@ class AddImageCollectionViewCell: UICollectionViewCell {
             //+버튼을 눌렀을 때 기존 사진 모두 초기화
             selectedAssets.removeAll()
             userSelectedImages.removeAll()
+            imageToData.removeAll()
             
             imagePicker.settings.selection.max = 5
             imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
@@ -50,8 +55,10 @@ class AddImageCollectionViewCell: UICollectionViewCell {
                     self.selectedAssets.append(assets[i])
                 }
                 self.convertAssetToImages()
+                
                 self.delegate?.didPickImagesToUpload(images: self.userSelectedImages)
-                print(assets)
+                self.delegate?.dataToSave(data1: self.imageToData)
+
             })
         }
     
@@ -74,10 +81,13 @@ class AddImageCollectionViewCell: UICollectionViewCell {
                     thumbnail = result!
                 }
                 
-                let data = thumbnail.jpegData(compressionQuality: 0.7)
+                let data = thumbnail.jpegData(compressionQuality: 0.9)
                 let newImage = UIImage(data: data!)
                 self.userSelectedImages.append(newImage! as UIImage)
+                self.imageToData.append(data! as Data)
+                
             }
         }
     }
+    
 }

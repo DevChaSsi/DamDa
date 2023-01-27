@@ -12,17 +12,29 @@ import RealmSwift
 class DiaryModel: Object {
     
     @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var imageObject: List<Data> = List<Data>()
+    var dataArray: [Data] {
+        get {
+            return imageObject.map{$0}
+        }
+        set {
+            imageObject.removeAll()
+            imageObject.append(objectsIn: newValue)
+        }
+    }
+//    var image: List<ImageObject> = List<ImageObject>()
     @Persisted var todayDate: String?
-    @Persisted var img: String?
     @Persisted var todayTitle: String?
     @Persisted var diaryTextView: String?
-    
-//    @Persisted var calender: String?
-//    @Persisted var dotw: String?
-//    @Persisted var month: String?
-//    @Persisted var weather: String?
+
 }
-//
+
+
+//class ImageObject: Object {
+//    @Persisted var imageObject: List<Data> = List<Data>()
+//}
+
+
 //func getWeatherIcon() {
 //    
 //}

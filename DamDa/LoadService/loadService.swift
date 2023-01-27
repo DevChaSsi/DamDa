@@ -19,10 +19,12 @@ class LoadService {
     
    
     //MARK: - Data Save
-    func saveDiary(diary: DiaryModel) {
+    func saveDiary(diary: DiaryModel) {//, image: ImageObject
         do {
             try realm.write {
                 realm.add(diary)
+//                realm.add(image)
+
             }
         } catch {
             print("Error saving DiaryModel \(error)")

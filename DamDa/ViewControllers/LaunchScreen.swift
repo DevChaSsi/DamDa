@@ -26,13 +26,7 @@ class LaunchScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        
     }
-    
-
-    
-    
     
     // MARK: - setup
     func setup() {

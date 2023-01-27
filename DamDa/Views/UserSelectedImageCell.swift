@@ -16,6 +16,7 @@ import UIKit
 class UserSelectedImageCell: UICollectionViewCell {
     
     @IBOutlet weak var userSelectedImage: UIImageView!
+
     
     
 //    var delegate: UserSelectedmageCellDelegate!

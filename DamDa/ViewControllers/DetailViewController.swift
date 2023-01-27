@@ -20,7 +20,11 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var diaryTextView: UITextView!
     @IBOutlet weak var detailCollectionView: UICollectionView!
     
-    private var viewModel: DetailViewModel = DetailViewModel()
+    let newToday = DiaryModel()
+    
+    private var viewModel: DetailViewModel?
+    private var imageViewModel: DetailImageViewModel = DetailImageViewModel() ///???왜 ㅅㅂ 뷰모델이 두개냐
+
     
     var diaryIndex: Int?
     var diaryEditorMode: DiaryEditorMode = .new
@@ -28,6 +32,8 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     var todayDatePickerString: String?
     var todayTitleString: String?
     var diaryTextViewString: String?
+    var diaryDataToImage: [UIImage]?
+    
     
     let realm = try! Realm()
 
@@ -49,10 +55,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         } else {
             diaryTextView.text = diaryTextViewString
         }
-        
-        
     }
-    
 
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -80,7 +83,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
         switch self.diaryEditorMode {
         case .new:
-            let newToday = DiaryModel()
+
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             
@@ -88,8 +91,9 @@ class DetailViewController: UIViewController, UITextViewDelegate {
             self.view.endEditing(true)
             newToday.todayTitle = todayTitle.text ?? ""
             newToday.diaryTextView = diaryTextView.text ?? ""
-            
+
             LoadService().saveDiary(diary: newToday)
+            
             
         case .edit:
             let updateToday = DiaryModel()
@@ -115,10 +119,11 @@ class DetailViewController: UIViewController, UITextViewDelegate {
 
 }
     
+//MARK: - CollectionView
     extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            self.viewModel.userSelectedImages.count + 1     /// Add Button 이 항상 있어야하므로 + 1
+            self.imageViewModel.userSelectedImages.count + 1    
         }
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -126,7 +131,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
             /// 첫 번째 Cell 은 항상 Add Button
             if indexPath.item == 0 {
                 
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addButtonCell", for: indexPath) as? AddImageCollectionViewCell else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addButtonCell", for: indexPath) as? AddImageViewCell else {
                     fatalError("Failed to dequeue cell addButtonCell")
                 }
                 cell.delegate = self
@@ -139,12 +144,12 @@ class DetailViewController: UIViewController, UITextViewDelegate {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userSelectedImageCell", for: indexPath) as? UserSelectedImageCell else {
                     fatalError("Failed to dequeue cell for userSelectedImageCell")
                 }
-                //            cell.delegate = self
+//                            cell.delegate = self
                 cell.indexPath = indexPath.item
                 
                 /// 사용자가 앨범에서 고른 사진이 있는 경우
-                if viewModel.userSelectedImages.count > 0 {
-                    cell.userSelectedImage.image = viewModel.userSelectedImages[indexPath.item - 1]
+                if imageViewModel.userSelectedImages.count > 0 {
+                    cell.userSelectedImage.image = imageViewModel.userSelectedImages[indexPath.item - 1]
                 }
                 return cell
             }
@@ -153,16 +158,22 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     
     
     
-    //MARK: - AddImageDelegate
+//MARK: - AddImageDelegate
     
-    extension DetailViewController: AddImageDelegate {
+extension DetailViewController: AddImageDelegate {
+    
+    func didPickImagesToUpload(images: [UIImage]) {
+
+        imageViewModel.userSelectedImages = images
+        detailCollectionView.reloadData()
         
-        func didPickImagesToUpload(images: [UIImage]) {
-            
-            viewModel.userSelectedImages = images
-            detailCollectionView.reloadData()
-        }
     }
+    
+    func dataToSave(data1: [Data]) {
+        newToday.imageObject.append(objectsIn: data1)
+
+    }
+}
 
 
     

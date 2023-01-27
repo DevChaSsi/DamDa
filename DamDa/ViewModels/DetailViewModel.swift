@@ -7,18 +7,64 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 class DetailListViewModel {
     
-    var detailListVM: [DetailViewModel]
+    let detailListVM: [DiaryModel]
     
     init() {
-        self.detailListVM = [DetailViewModel]()
+        self.detailListVM = [DiaryModel]()
     }
 }
 
+extension DetailListViewModel {
+    var numberOfsection: Int {
+        return 1
+    }
+    func numberOfRowsInSection(_ section: Int) -> Int {
+        return self.detailListVM.count
+    }
+    
+    func detailListIndex(_ index: Int) -> DetailViewModel {
+        let diaryList = self.detailListVM[index]
+        return DetailViewModel(diaryList)
+    }
+}
+
+
+
 struct DetailViewModel {
-        let diaryModel = DiaryModel()
+    let diaryModel: DiaryModel
+    
+}
+
+extension DetailViewModel {
+    init(_ diary: DiaryModel) {
+        self.diaryModel = diary
+    }
+    
+}
+extension DetailViewModel {
+    var todayDate: String? {
+        return self.diaryModel.todayDate
+    }
+    var todayTitle: String? {
+        return self.diaryModel.todayTitle
+    }
+
+    var diaryTextView: String? {
+        return self.diaryModel.diaryTextView
+    }
+    
+    var imageobject: List<Data> {
+        return self.diaryModel.imageObject
+    }
+}
+
+
+struct DetailImageViewModel {
+        
     var userSelectedImages: [UIImage] {
         willSet {
             userSelectedImages.removeAll()
@@ -31,20 +77,6 @@ struct DetailViewModel {
     }
     public init() {
         userSelectedImages = [UIImage]()
-    }
-}
-extension DetailViewModel {
-    var todayDate: String? {
-        return self.diaryModel.todayDate
-    }
-    var todayTitle: String? {
-        return self.diaryModel.todayTitle
-    }
-    var img: String? {
-        return self.diaryModel.img
-    }
-    var diaryTextView: String? {
-        return self.diaryModel.diaryTextView
     }
 }
 
