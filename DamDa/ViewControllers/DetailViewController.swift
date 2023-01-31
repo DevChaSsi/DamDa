@@ -41,7 +41,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         definesPresentationContext = true
-        
+        detailCollectionView.reloadData()
         
         if let msg1 = todayTitleString {
                     self.todayTitle.text = msg1
@@ -95,27 +95,28 @@ class DetailViewController: UIViewController, UITextViewDelegate {
 
             LoadService().saveDiary(diary: newToday)
             
-            
         case .edit:
-            let updateToday = DiaryModel()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             
-            updateToday.todayDate = dateFormatter.string(from: todayDatePicker.date)
+            newToday.todayDate = dateFormatter.string(from: todayDatePicker.date)
             self.view.endEditing(true)
-            updateToday.todayTitle = todayTitle.text ?? ""
-            updateToday.diaryTextView = diaryTextView.text ?? ""
+            newToday.todayTitle = todayTitle.text ?? ""
+            newToday.diaryTextView = diaryTextView.text ?? ""
             
             
             let diaaary = realm.objects(DiaryModel.self)
             try! realm.write {
-                diaaary[diaryIndex!].todayDate = updateToday.todayDate
-                diaaary[diaryIndex!].todayTitle = updateToday.todayTitle
-                diaaary[diaryIndex!].diaryTextView = updateToday.diaryTextView
+                diaaary[diaryIndex!].todayDate = newToday.todayDate
+                diaaary[diaryIndex!].todayTitle = newToday.todayTitle
+                diaaary[diaryIndex!].diaryTextView = newToday.diaryTextView
+                diaaary[diaryIndex!].imageObject = newToday.imageObject
+
             }
-//            LoadService().updateDiary(diary: updateToday)
+            
         }
         self.navigationController?.popViewController(animated: true)
+        
     }
 
 }
@@ -146,10 +147,12 @@ class DetailViewController: UIViewController, UITextViewDelegate {
                 cell.indexPath = indexPath.item
                 if imageViewModel.userSelectedImages.count > 0 {
                     cell.userSelectedImage.image = imageViewModel.userSelectedImages[indexPath.item - 1]
+
                 }
                 return cell
             }
         }
+        
     }
     
     
@@ -169,6 +172,7 @@ extension DetailViewController: AddImageDelegate {
     
     func dataToSave(data1: [Data]) {
         newToday.imageObject.append(objectsIn: data1)
+        
 
     }
 }

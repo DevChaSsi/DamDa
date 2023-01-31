@@ -18,7 +18,7 @@ class WrittenViewController: UIViewController {
     @IBOutlet weak var todayDate: UILabel!
     @IBOutlet weak var todayTitle: UILabel!
     @IBOutlet weak var diaryText: UITextView!
-    
+    @IBOutlet weak var WrittenCollectionView: UICollectionView!
     
     var diary: DiaryModel?
     var viewModel: DetailViewModel?
@@ -33,10 +33,9 @@ class WrittenViewController: UIViewController {
         todayDate.text = diary?.todayDate
         todayTitle.text = diary?.todayTitle
         diaryText.text = diary?.diaryTextView
+        self.WrittenCollectionView.reloadData()
         
-        tasks = realm.objects(DiaryModel.self)
-        
-        
+ 
 
     }
     
@@ -47,16 +46,16 @@ class WrittenViewController: UIViewController {
         todayDate.text = diary?.todayDate
         todayTitle.text = diary?.todayTitle
         diaryText.text = diary?.diaryTextView
+       
         
         dataToImage()
         popupMenu()
-        
-        
+        self.WrittenCollectionView.reloadData()
     }
     //MARK: - Data to Image
     func dataToImage() {
 
-        tasks = realm.objects(DiaryModel.self)
+//        tasks = realm.objects(DiaryModel.self)
         imageToData = diary?.dataArray ?? []
         
         for i in 0..<imageToData.count {
@@ -181,18 +180,19 @@ extension WrittenViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.userSelectedImageFromData.image = UIImage(systemName: "photo")
             cell.userSelectedImageFromData.tintColor = .black
             cell.userSelectedImageFromData.contentMode = .scaleAspectFit
-        
+
             return cell
-            
         } else {
             cell.indexPath = indexPath.item
 //            if (diary?.dataArray.count)! > 0 {
               
                 cell.userSelectedImageFromData.image = userSelectedImages[indexPath.item]
                 cell.userSelectedImageFromData.contentMode = .scaleToFill
+
 //            }
                 return cell
         }
+
     }
        
             

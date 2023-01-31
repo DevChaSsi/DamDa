@@ -497,6 +497,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="WrittenCollectionView" destination="FIL-T1-DYH" id="7Jd-hZ-CuD"/>
                         <outlet property="diaryText" destination="T6k-1Y-n3x" id="shj-hx-iIM"/>
                         <outlet property="todayDate" destination="ZAQ-kO-2DL" id="qCD-Ng-Jzg"/>
                         <outlet property="todayTitle" destination="BrL-Jo-9p4" id="kKM-9g-ErU"/>
