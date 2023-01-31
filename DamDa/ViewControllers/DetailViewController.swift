@@ -42,6 +42,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         definesPresentationContext = true
         
+        
         if let msg1 = todayTitleString {
                     self.todayTitle.text = msg1
                 }
@@ -136,18 +137,13 @@ class DetailViewController: UIViewController, UITextViewDelegate {
                 }
                 cell.delegate = self
                 return cell
-            }
-            
-            /// 그 외의 셀은 사용자가 고른 사진으로 구성된  Cell
-            else {
                 
+            } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userSelectedImageCell", for: indexPath) as? UserSelectedImageCell else {
                     fatalError("Failed to dequeue cell for userSelectedImageCell")
                 }
-//                            cell.delegate = self
+                //cell.delegate = self
                 cell.indexPath = indexPath.item
-                
-                /// 사용자가 앨범에서 고른 사진이 있는 경우
                 if imageViewModel.userSelectedImages.count > 0 {
                     cell.userSelectedImage.image = imageViewModel.userSelectedImages[indexPath.item - 1]
                 }
@@ -158,6 +154,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     
     
     
+    
 //MARK: - AddImageDelegate
     
 extension DetailViewController: AddImageDelegate {
@@ -165,6 +162,7 @@ extension DetailViewController: AddImageDelegate {
     func didPickImagesToUpload(images: [UIImage]) {
 
         imageViewModel.userSelectedImages = images
+        
         detailCollectionView.reloadData()
         
     }

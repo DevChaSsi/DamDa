@@ -80,7 +80,6 @@ class WrittenViewController: UIViewController {
                 goDetailViewController.diaryTextViewString = self.diary?.diaryTextView
                 goDetailViewController.diaryIndex = self.diaryIndex
                 
-                let imageData = self.diary?.imageObject
 
 
                 
@@ -166,40 +165,69 @@ extension WrittenViewController: UICollectionViewDelegate, UICollectionViewDataS
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.diary?.imageObject.count ?? 1
+        
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         /// 첫 번째 Cell 은 default image
-        if indexPath.item == 0 {
+
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoreDetailImageCell", for: indexPath) as? MoreDetailImageCell else {
                 fatalError("Failed to dequeue cell for EditorModeImageCell")
             }
+        
+        if diary?.dataArray.count == 0 {
             
             cell.userSelectedImageFromData.image = UIImage(systemName: "photo")
-            cell.userSelectedImageFromData.contentMode = .scaleToFill
-            
-
-            return cell
-        }
+            cell.userSelectedImageFromData.tintColor = .black
+            cell.userSelectedImageFromData.contentMode = .scaleAspectFit
         
-        /// 그 외의 셀은 사용자가 고른 사진으로 구성된  Cell
-        else {
+            return cell
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoreDetailImageCell", for: indexPath) as? MoreDetailImageCell else {
-                fatalError("Failed to dequeue cell for EditorModeImageCell")
-            }
+        } else {
             cell.indexPath = indexPath.item
-            
-            /// 사용자가 앨범에서 고른 사진이 있는 경우
-            if (diary?.dataArray.count)! > 0 {
+//            if (diary?.dataArray.count)! > 0 {
               
                 cell.userSelectedImageFromData.image = userSelectedImages[indexPath.item]
                 cell.userSelectedImageFromData.contentMode = .scaleToFill
-            }
+//            }
                 return cell
         }
     }
+       
+            
+//        /// 첫 번째 Cell 은 default image
+//        if self.diary?.dataArray.count == 0 {
+//            print(self.diary?.dataArray.count)
+//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoreDetailImageCell", for: indexPath) as? MoreDetailImageCell else {
+//                fatalError("Failed to dequeue cell for EditorModeImageCell")
+//            }
+//
+//            cell.userSelectedImageFromData.image = UIImage(systemName: "photo")
+//            cell.userSelectedImageFromData.tintColor = .black
+//            cell.userSelectedImageFromData.contentMode = .scaleAspectFit
+//
+//
+//            return cell
+//        }
+//
+//        /// 그 외의 셀은 사용자가 고른 사진으로 구성된  Cell
+//        else {
+//
+//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoreDetailImageCell", for: indexPath) as? MoreDetailImageCell else {
+//                fatalError("Failed to dequeue cell for EditorModeImageCell")
+//            }
+//            cell.indexPath = indexPath.item
+//
+//            /// 사용자가 앨범에서 고른 사진이 있는 경우
+//            if (diary?.dataArray.count)! > 0 {
+//
+//                cell.userSelectedImageFromData.image = userSelectedImages[indexPath.item]
+//                cell.userSelectedImageFromData.contentMode = .scaleToFill
+//            }
+//                return cell
+//        }
+//    }
 }
 
 

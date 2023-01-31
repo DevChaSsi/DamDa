@@ -32,6 +32,9 @@ override func viewWillAppear(_ animated: Bool) {
         tableView.register(nibName, forCellReuseIdentifier: "DiaryListTableViewCell")
         
         loadDiary()
+        tableView.rowHeight =  UITableView .automaticDimension
+        tableView.estimatedRowHeight =  100
+        
         tableView.reloadData()
         
     }
@@ -71,7 +74,9 @@ extension StartViewController: UITableViewDelegate, UITableViewDataSource {
 
         if task.dataArray.count == 0 {
             cell.previewImage.image = UIImage(systemName: "photo")
+            cell.previewImage.tintColor = .black
             cell.previewImage.contentMode = .scaleAspectFit
+
             
         } else {
             let newImage = UIImage(data: task.dataArray[0])

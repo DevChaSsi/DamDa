@@ -323,7 +323,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="200" id="GOE-SW-jk9"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TsC-49-OdI">
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TsC-49-OdI">
                                             <size key="itemSize" width="385" height="195"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -331,7 +331,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MoreDetailImageCell" id="JLy-aI-Zpy" customClass="MoreDetailImageCell" customModule="DamDa" customModuleProvider="target">
-                                                <rect key="frame" x="14.5" y="0.0" width="385" height="195"/>
+                                                <rect key="frame" x="0.0" y="2.5" width="385" height="195"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bFo-Z1-l4H">
                                                     <rect key="frame" x="0.0" y="0.0" width="385" height="195"/>
