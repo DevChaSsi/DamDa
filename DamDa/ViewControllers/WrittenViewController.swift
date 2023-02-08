@@ -11,17 +11,14 @@ import RealmSwift
 class WrittenViewController: UIViewController {
 
     let realm = try! Realm()
-    
-    var tasks: Results<DiaryModel>!
 
-    
     @IBOutlet weak var todayDate: UILabel!
     @IBOutlet weak var todayTitle: UILabel!
-    @IBOutlet weak var diaryText: UITextView!
+    @IBOutlet weak var diaryText: UILabel!
     @IBOutlet weak var WrittenCollectionView: UICollectionView!
     
     var diary: DiaryModel?
-    var viewModel: DetailViewModel?
+    var imageViewModel: DetailImageViewModel?
     
     var diaryIndex: Int?
     
@@ -30,11 +27,20 @@ class WrittenViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        
         todayDate.text = diary?.todayDate
         todayTitle.text = diary?.todayTitle
         diaryText.text = diary?.diaryTextView
-        self.WrittenCollectionView.reloadData()
         
+//        if RefreshValue.SharedInstance().refreshValue {
+            self.userSelectedImages.removeAll()
+            dataToImage()
+//            RefreshValue.SharedInstance().refreshValue = false
+//        }
+        self.WrittenCollectionView.reloadData()
+        viewWillLayoutSubviews()
+
  
 
     }
@@ -46,22 +52,17 @@ class WrittenViewController: UIViewController {
         todayDate.text = diary?.todayDate
         todayTitle.text = diary?.todayTitle
         diaryText.text = diary?.diaryTextView
-       
-        
-        dataToImage()
+//        dataToImage()
         popupMenu()
         self.WrittenCollectionView.reloadData()
     }
     //MARK: - Data to Image
     func dataToImage() {
-
-//        tasks = realm.objects(DiaryModel.self)
+    
         imageToData = diary?.dataArray ?? []
-        
         for i in 0..<imageToData.count {
             let newImage = UIImage(data: imageToData[i])
             self.userSelectedImages.append(newImage! as UIImage)
-    
         }
     }
     
@@ -71,15 +72,18 @@ class WrittenViewController: UIViewController {
         return [
             UIAction(title: "수정하기", image: UIImage(systemName: "eraser"), handler: { (_) in
                 guard let goDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "WriteDiaryViewController") as? DetailViewController else { return }
-                
-                self.navigationController?.pushViewController(goDetailViewController, animated: true)
-                
+
+        
                 goDetailViewController.diaryEditorMode = .edit
+                goDetailViewController.userSelectedImage.append(contentsOf: self.userSelectedImages)
                 goDetailViewController.todayTitleString = self.diary?.todayTitle
                 goDetailViewController.diaryTextViewString = self.diary?.diaryTextView
                 goDetailViewController.diaryIndex = self.diaryIndex
                 
-
+                goDetailViewController.imageViewModel.userSelectedImages = self.userSelectedImages
+                goDetailViewController.self.detailCollectionView?.reloadData()
+                self.navigationController?.pushViewController(goDetailViewController, animated: true)
+                
 
                 
             }),
@@ -132,12 +136,15 @@ class WrittenViewController: UIViewController {
             
                 guard let goDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "WriteDiaryViewController") as? DetailViewController else { return }
                 
-                self.navigationController?.pushViewController(goDetailViewController, animated: true)
-                
-                goDetailViewController.diaryEditorMode = .edit
-                goDetailViewController.todayTitleString = self.diary?.todayTitle
-                goDetailViewController.diaryTextViewString = self.diary?.diaryTextView
-                goDetailViewController.diaryIndex = self.diaryIndex
+            goDetailViewController.diaryEditorMode = .edit
+            goDetailViewController.userSelectedImage.append(contentsOf: self.userSelectedImages)
+            goDetailViewController.todayTitleString = self.diary?.todayTitle
+            goDetailViewController.diaryTextViewString = self.diary?.diaryTextView
+            goDetailViewController.diaryIndex = self.diaryIndex
+            goDetailViewController.imageViewModel.userSelectedImages = self.userSelectedImages
+            goDetailViewController.self.detailCollectionView?.reloadData()
+            self.navigationController?.pushViewController(goDetailViewController, animated: true)
+
             
         })
         let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive, handler: { _ in
@@ -169,29 +176,32 @@ extension WrittenViewController: UICollectionViewDelegate, UICollectionViewDataS
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        /// 첫 번째 Cell 은 default image
-
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoreDetailImageCell", for: indexPath) as? MoreDetailImageCell else {
                 fatalError("Failed to dequeue cell for EditorModeImageCell")
             }
         
-        if diary?.dataArray.count == 0 {
-            
-            cell.userSelectedImageFromData.image = UIImage(systemName: "photo")
-            cell.userSelectedImageFromData.tintColor = .black
-            cell.userSelectedImageFromData.contentMode = .scaleAspectFit
+        cell.userSelectedImageFromData.image = userSelectedImages[indexPath.item]
+        cell.userSelectedImageFromData.contentMode = .scaleToFill
+        return cell
 
-            return cell
-        } else {
-            cell.indexPath = indexPath.item
-//            if (diary?.dataArray.count)! > 0 {
-              
-                cell.userSelectedImageFromData.image = userSelectedImages[indexPath.item]
-                cell.userSelectedImageFromData.contentMode = .scaleToFill
-
-//            }
-                return cell
-        }
+//        if diary?.dataArray.count == 0 {
+//            
+//            cell.userSelectedImageFromData.image = UIImage(systemName: "photo")
+//            cell.userSelectedImageFromData.tintColor = .black
+//            cell.userSelectedImageFromData.contentMode = .scaleAspectFit
+//            
+//            return cell
+//        } else {
+//            cell.indexPath = indexPath.item
+//            //            if (diary?.dataArray.count)! > 0 {
+//            print(userSelectedImages[indexPath.item])
+//            
+//            cell.userSelectedImageFromData.image = userSelectedImages[indexPath.item]
+//            cell.userSelectedImageFromData.contentMode = .scaleToFill
+//            
+//            //            }
+//            return cell
+//        }
 
     }
        
@@ -230,6 +240,11 @@ extension WrittenViewController: UICollectionViewDelegate, UICollectionViewDataS
 //    }
 }
 
+extension WrittenViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 900, height: 250)
+    }
+}
 
 
 

@@ -10,20 +10,25 @@ import RealmSwift
 import BSImagePicker
 import Photos
 
+//protocol AddImageDelegate {
+//    func didPickImagesToUpload(images: [UIImage])
+//    func dataToSave(data1: [Data])
+//}
+
+
 
 class DetailViewController: UIViewController, UITextViewDelegate {
     
-//    let addImageViewCell = AddImageCollectionViewCell.selectedAsset
     
     @IBOutlet weak var todayDatePicker: UIDatePicker!
     @IBOutlet weak var todayTitle: UITextField!
     @IBOutlet weak var diaryTextView: UITextView!
     @IBOutlet weak var detailCollectionView: UICollectionView!
-    
-    let newToday = DiaryModel()
+
+    var newToday = DiaryModel()
     
     private var viewModel: DetailViewModel?
-    private var imageViewModel: DetailImageViewModel = DetailImageViewModel() ///???왜 ㅅㅂ 뷰모델이 두개냐
+    var imageViewModel: DetailImageViewModel = DetailImageViewModel() ///???왜 ㅅㅂ 뷰모델이 두개냐
 
     
     var diaryIndex: Int?
@@ -34,19 +39,28 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     var diaryTextViewString: String?
     var diaryDataToImage: [UIImage]?
     
+    var selectedAssets: [PHAsset] = [PHAsset]()
+    var userSelectedImage: [UIImage] = [UIImage]()
+    var imageToData: [Data] = [Data]()
+    
+    
     
     let realm = try! Realm()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        definesPresentationContext = true
-        detailCollectionView.reloadData()
         
+        detailCollectionView.delegate = self
+        detailCollectionView.dataSource = self
+        definesPresentationContext = true
+        
+        self.hideKeyboardWhenTapped()
+                
         if let msg1 = todayTitleString {
                     self.todayTitle.text = msg1
                 }
-
+//        self.refresh()
         
         //MARK: - textView PlaceHolder
         diaryTextView.delegate = self
@@ -77,6 +91,74 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+
+   //MARK: - ImagePicker
+    @IBAction func addImageToDiary(_ sender: UIButton){
+        let imagePicker = ImagePickerController()
+        
+        //+버튼을 눌렀을 때 기존 사진 모두 초기화
+        selectedAssets.removeAll()
+        userSelectedImage.removeAll()
+        imageToData.removeAll()
+        newToday.imageObject.removeAll()
+        
+        imagePicker.settings.selection.max = 5
+        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
+                
+        presentImagePicker(imagePicker, select: { (asset) in
+            // User selected an asset. Do something with it. Perhaps begin processing/upload?
+            
+        }, deselect: { (asset) in
+            // User deselected an asset. Cancel whatever you did when asset was selected.
+            
+        }, cancel: { (assets) in
+            // User canceled selection.
+            
+        }, finish: { (assets) in
+            // User finished selection assets.
+            for i in 0..<assets.count {
+                self.selectedAssets.append(assets[i])
+            }
+            self.convertAssetToImages()
+            
+            self.imageViewModel.userSelectedImages = self.userSelectedImage
+            self.newToday.imageObject.append(objectsIn: self.imageToData)
+            self.detailCollectionView.reloadData()
+//            RefreshValue.SharedInstance().refreshValue = true
+            WrittenViewController().WrittenCollectionView?.reloadData()
+
+//            self.delegate?.didPickImagesToUpload(images: self.userSelectedImage)
+//            self.delegate?.dataToSave(data1: self.imageToData)
+//
+        })
+    }
+    
+    func convertAssetToImages() {
+        
+        if selectedAssets.count != 0 {
+            
+            for i in 0..<selectedAssets.count {
+                
+                let imageManager = PHImageManager.default()
+                let option = PHImageRequestOptions()
+                option.isSynchronous = true
+                var thumbnail = UIImage()
+                
+                imageManager.requestImage(for: selectedAssets[i],
+                                          targetSize: CGSize(width: 200, height: 200),
+                                          contentMode: .aspectFit,
+                                          options: option) { (result, info) in
+                    thumbnail = result!
+                }
+                
+                let data = thumbnail.jpegData(compressionQuality: 0.9)
+                let newImage = UIImage(data: data!)
+                self.userSelectedImage.append(newImage! as UIImage)
+                self.imageToData.append(data! as Data)
+                
+            }
+        }
+    }
     
     
     //MARK: - SaveButtonPressed
@@ -113,7 +195,8 @@ class DetailViewController: UIViewController, UITextViewDelegate {
                 diaaary[diaryIndex!].imageObject = newToday.imageObject
 
             }
-            
+            WrittenViewController().WrittenCollectionView?.reloadData()
+
         }
         self.navigationController?.popViewController(animated: true)
         
@@ -122,93 +205,56 @@ class DetailViewController: UIViewController, UITextViewDelegate {
 }
     
 //MARK: - CollectionView
-    extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            self.imageViewModel.userSelectedImages.count + 1    
+        return self.imageViewModel.userSelectedImages.count
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userSelectedImageCell", for: indexPath) as? UserSelectedImageCell else {
+            fatalError("Failed to dequeue cell for userSelectedImageCell")
         }
-        
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            
-            /// 첫 번째 Cell 은 항상 Add Button
-            if indexPath.item == 0 {
-                
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addButtonCell", for: indexPath) as? AddImageViewCell else {
-                    fatalError("Failed to dequeue cell addButtonCell")
-                }
-                cell.delegate = self
-                return cell
-                
-            } else {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userSelectedImageCell", for: indexPath) as? UserSelectedImageCell else {
-                    fatalError("Failed to dequeue cell for userSelectedImageCell")
-                }
-                //cell.delegate = self
-                cell.indexPath = indexPath.item
-                if imageViewModel.userSelectedImages.count > 0 {
-                    cell.userSelectedImage.image = imageViewModel.userSelectedImages[indexPath.item - 1]
-
-                }
-                return cell
-            }
-        }
-        
+        cell.userSelectedImage.image = imageViewModel.userSelectedImages[indexPath.item]
+        return cell
     }
     
     
-    
-    
-//MARK: - AddImageDelegate
-    
-extension DetailViewController: AddImageDelegate {
-    
-    func didPickImagesToUpload(images: [UIImage]) {
-
-        imageViewModel.userSelectedImages = images
-        
-        detailCollectionView.reloadData()
-        
-    }
-    
-    func dataToSave(data1: [Data]) {
-        newToday.imageObject.append(objectsIn: data1)
-        
-
-    }
 }
 
 
+ 
+    //MARK: - AddImageDelegate
+    //
+    //extension DetailViewController: AddImageDelegate {
+    //
+    //    func didPickImagesToUpload(images: [UIImage]) {
+    //
+    //            imageViewModel.userSelectedImages = images
+    //            detailCollectionView.reloadData()
+    //
+    //
+    //    }
+    //
+    //    func dataToSave(data1: [Data]) {
+    //        newToday.imageObject.append(objectsIn: data1)
+    //
+    //    }
+    //}
+    //
     
-    //MARK: - UserPickedFoodImageCellDelegate
     
-//    extension DetailViewController: UserSelectedmageCellDelegate {
-//    
-//        func didPressDeleteImageButton(at index: Int) {
-//    
-//            viewModel.userSelectedImages.remove(at: index - 1)
-//            detailCollectionView.reloadData()
-//        }
-//    }
-//    extension DetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-//    
-//        func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//            return 1
-//        }
-//    
-//        func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//            return viewModel.foodCategoryArray.count
-//        }
-//    
-//        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//            return viewModel.foodCategoryArray[row]
-//        }
-//    
-//        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//    
-//            let selectedFoodCategory = viewModel.foodCategoryArray[row]
-//            viewModel.foodCategory = selectedFoodCategory
-//    
-//            foodCategoryTextField.text = selectedFoodCategory
-//        }
-//    }
+//MARK: - keyboard resign
 
+extension DetailViewController {
+    func hideKeyboardWhenTapped() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}

@@ -15,15 +15,14 @@ class StartViewController: UIViewController {
     let realm = try! Realm()
     
     var loadItem: Results<DiaryModel>!
-    
-override func viewWillAppear(_ animated: Bool) {
-      navigationController?.setNavigationBarHidden(true, animated: true) // 뷰 컨트롤러가 나타날 때 숨기기
-        tableView.reloadData()
-    }
-    
 
     @IBOutlet weak var tableView: UITableView!
     
+    override func viewWillAppear(_ animated: Bool) {
+          navigationController?.setNavigationBarHidden(true, animated: true) // 뷰 컨트롤러가 나타날 때 숨기기
+            tableView.reloadData()
+        }
+        
     override func viewDidLoad() {
             super.viewDidLoad()
         
@@ -31,9 +30,9 @@ override func viewWillAppear(_ animated: Bool) {
         let nibName = UINib(nibName: "DiaryListTableViewCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "DiaryListTableViewCell")
         
+        self.tableView.rowHeight = 100;
+
         loadDiary()
-        tableView.rowHeight =  UITableView .automaticDimension
-        tableView.estimatedRowHeight =  100
         
         tableView.reloadData()
         

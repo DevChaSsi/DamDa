@@ -13,7 +13,7 @@ class LaunchScreen: UIViewController {
     let animationView: LottieAnimationView = {
         let animationView: LottieAnimationView = .init(name: "splash")
         animationView.contentMode = .scaleToFill
-        animationView.animationSpeed = 10
+        animationView.animationSpeed = 2
            return animationView
        }()
     

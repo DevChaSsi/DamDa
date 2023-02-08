@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import UIKit
 
 
 class DiaryModel: Object {
@@ -35,14 +36,3 @@ class DiaryModel: Object {
 //}
 
 
-//func getWeatherIcon() {
-//    
-//}
-//
-//func getDotwColor(){
-//    
-//}
-//
-//func getImageThumbnail() {
-//    
-//}

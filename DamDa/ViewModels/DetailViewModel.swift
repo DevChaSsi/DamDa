@@ -52,7 +52,7 @@ extension DetailViewModel {
     var todayTitle: String? {
         return self.diaryModel.todayTitle
     }
-
+    
     var diaryTextView: String? {
         return self.diaryModel.diaryTextView
     }
@@ -64,6 +64,7 @@ extension DetailViewModel {
 
 
 struct DetailImageViewModel {
+    var isTest = false
         
     var userSelectedImages: [UIImage] {
         willSet {
