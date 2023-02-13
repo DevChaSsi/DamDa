@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import Then
 
 class WrittenViewController: UIViewController {
 
@@ -17,6 +18,11 @@ class WrittenViewController: UIViewController {
     @IBOutlet weak var diaryText: UILabel!
     @IBOutlet weak var WrittenCollectionView: UICollectionView!
     
+    
+    @IBOutlet weak var todayTitle1: UILabel!
+    @IBOutlet weak var todayTitle2: UILabel!
+    
+    
     var diary: DiaryModel?
     var imageViewModel: DetailImageViewModel?
     
@@ -25,9 +31,22 @@ class WrittenViewController: UIViewController {
     var userSelectedImages: [UIImage] = [UIImage]()
     var imageToData: [Data] = [Data]()
     
+  
+    
+
+
     
     override func viewWillAppear(_ animated: Bool) {
         
+        todayTitle1.layer.masksToBounds = true
+        todayTitle1.layer.cornerRadius = 20
+        todayTitle1.backgroundColor = .systemGray5
+        todayTitle1.textColor = .darkGray
+        
+        todayTitle2.layer.masksToBounds = true
+        todayTitle2.layer.cornerRadius = 20
+        todayTitle2.backgroundColor = .systemGray5
+        todayTitle2.textColor = .darkGray
         
         todayDate.text = diary?.todayDate
         todayTitle.text = diary?.todayTitle
@@ -49,9 +68,9 @@ class WrittenViewController: UIViewController {
         super.viewDidLoad()
         
         
-        todayDate.text = diary?.todayDate
-        todayTitle.text = diary?.todayTitle
-        diaryText.text = diary?.diaryTextView
+//        todayDate.text = diary?.todayDate
+//        todayTitle.text = diary?.todayTitle
+//        diaryText.text = diary?.diaryTextView
 //        dataToImage()
         popupMenu()
         self.WrittenCollectionView.reloadData()

@@ -14,6 +14,9 @@
 		DA0B298A298BE57B00EEE6C0 /* RefreshValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B2989298BE57B00EEE6C0 /* RefreshValue.swift */; };
 		DA43D984292CC23D0046586C /* DiaryListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA43D982292CC23D0046586C /* DiaryListTableViewCell.swift */; };
 		DA43D985292CC23D0046586C /* DiaryListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA43D983292CC23D0046586C /* DiaryListTableViewCell.xib */; };
+		DA983CD42999DDC0005CBEB0 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA983CD32999DDC0005CBEB0 /* PaddingLabel.swift */; };
+		DA983CD72999E097005CBEB0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DA983CD62999E097005CBEB0 /* Then */; };
+		DA983CD92999F4FC005CBEB0 /* line divider (gray).png in Resources */ = {isa = PBXBuildFile; fileRef = DA983CD82999F4FC005CBEB0 /* line divider (gray).png */; };
 		DAA59C6429276B7C00CC5781 /* DiaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA59C6329276B7C00CC5781 /* DiaryModel.swift */; };
 		DAA59C8F29277C9400CC5781 /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = DAA59C8E29277C9400CC5781 /* splash.json */; };
 		DABABC1829383AF300A320AD /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABABC1729383AF300A320AD /* DetailViewModel.swift */; };
@@ -40,6 +43,8 @@
 		DA0B2989298BE57B00EEE6C0 /* RefreshValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshValue.swift; sourceTree = "<group>"; };
 		DA43D982292CC23D0046586C /* DiaryListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListTableViewCell.swift; sourceTree = "<group>"; };
 		DA43D983292CC23D0046586C /* DiaryListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryListTableViewCell.xib; sourceTree = "<group>"; };
+		DA983CD32999DDC0005CBEB0 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		DA983CD82999F4FC005CBEB0 /* line divider (gray).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "line divider (gray).png"; path = "DamDa/line divider (gray).png"; sourceTree = SOURCE_ROOT; };
 		DAA59C6329276B7C00CC5781 /* DiaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryModel.swift; sourceTree = "<group>"; };
 		DAA59C8E29277C9400CC5781 /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = SOURCE_ROOT; };
 		DABABC1729383AF300A320AD /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
@@ -62,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA983CD72999E097005CBEB0 /* Then in Frameworks */,
 				DABCDF6B296C048B002F9BA9 /* RealmSwift in Frameworks */,
 				DABCDF69296C048B002F9BA9 /* Realm in Frameworks */,
 				DAD51A852844F107002A2914 /* BSImagePicker in Frameworks */,
@@ -118,6 +124,7 @@
 				DA43D982292CC23D0046586C /* DiaryListTableViewCell.swift */,
 				DABABC1929383FAE00A320AD /* UserSelectedImageCell.swift */,
 				DA00B8CA29812EA6008F13DE /* MoreDetailImageCell.swift */,
+				DA983CD32999DDC0005CBEB0 /* PaddingLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -160,6 +167,7 @@
 				DAA59C5D29276A3200CC5781 /* ViewControllers */,
 				DABABBEB292CC79F00A320AD /* Views */,
 				DAD47421283228310063912A /* Assets.xcassets */,
+				DA983CD82999F4FC005CBEB0 /* line divider (gray).png */,
 				DAD47426283228310063912A /* Info.plist */,
 			);
 			path = DamDa;
@@ -195,6 +203,7 @@
 				DAD51A842844F107002A2914 /* BSImagePicker */,
 				DABCDF68296C048B002F9BA9 /* Realm */,
 				DABCDF6A296C048B002F9BA9 /* RealmSwift */,
+				DA983CD62999E097005CBEB0 /* Then */,
 			);
 			productName = DamDa;
 			productReference = DAD474152832282F0063912A /* DamDa.app */;
@@ -227,6 +236,7 @@
 			packageReferences = (
 				DAD51A832844F107002A2914 /* XCRemoteSwiftPackageReference "BSImagePicker" */,
 				DABCDF67296C048B002F9BA9 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				DA983CD52999E097005CBEB0 /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = DAD474162832282F0063912A /* Products */;
 			projectDirPath = "";
@@ -246,6 +256,7 @@
 				DAD47422283228310063912A /* Assets.xcassets in Resources */,
 				DAD474202832282F0063912A /* Main.storyboard in Resources */,
 				DA43D985292CC23D0046586C /* DiaryListTableViewCell.xib in Resources */,
+				DA983CD92999F4FC005CBEB0 /* line divider (gray).png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +315,7 @@
 				DAD51A8E2844FBEA002A2914 /* StartViewController.swift in Sources */,
 				DAA59C6429276B7C00CC5781 /* DiaryModel.swift in Sources */,
 				DAD474192832282F0063912A /* AppDelegate.swift in Sources */,
+				DA983CD42999DDC0005CBEB0 /* PaddingLabel.swift in Sources */,
 				DABABC1C2946B7E200A320AD /* loadService.swift in Sources */,
 				DABABC1A29383FAE00A320AD /* UserSelectedImageCell.swift in Sources */,
 				DA0B298A298BE57B00EEE6C0 /* RefreshValue.swift in Sources */,
@@ -529,6 +541,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DA983CD52999E097005CBEB0 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		DABCDF67296C048B002F9BA9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -548,6 +568,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DA983CD62999E097005CBEB0 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA983CD52999E097005CBEB0 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
 		DABCDF68296C048B002F9BA9 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DABCDF67296C048B002F9BA9 /* XCRemoteSwiftPackageReference "realm-swift" */;

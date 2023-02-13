@@ -68,7 +68,7 @@ struct DetailImageViewModel {
         
     var userSelectedImages: [UIImage] {
         willSet {
-            userSelectedImages.removeAll()
+//            userSelectedImages.removeAll()
         }
         didSet {
             /// 받은 UIImage 를 JPEGData 로 저장하고,

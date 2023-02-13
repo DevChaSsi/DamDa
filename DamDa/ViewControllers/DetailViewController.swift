@@ -24,7 +24,11 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var todayTitle: UITextField!
     @IBOutlet weak var diaryTextView: UITextView!
     @IBOutlet weak var detailCollectionView: UICollectionView!
-
+    
+    @IBOutlet weak var todayTitle1: PaddingLabel!
+    @IBOutlet weak var todayTitle2: PaddingLabel!
+    
+    
     var newToday = DiaryModel()
     
     private var viewModel: DetailViewModel?
@@ -54,6 +58,16 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         detailCollectionView.delegate = self
         detailCollectionView.dataSource = self
         definesPresentationContext = true
+        
+        todayTitle1.layer.masksToBounds = true
+        todayTitle1.layer.cornerRadius = 20
+        todayTitle1.backgroundColor = .systemGray5
+        todayTitle1.textColor = .darkGray
+        
+        todayTitle2.layer.masksToBounds = true
+        todayTitle2.layer.cornerRadius = 20
+        todayTitle2.backgroundColor = .systemGray5
+        todayTitle2.textColor = .darkGray
         
         self.hideKeyboardWhenTapped()
                 
